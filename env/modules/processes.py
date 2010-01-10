@@ -22,12 +22,10 @@ class IProcessInfo(Interface):
 class ProcessModule(Component):
     implements(ISystemModule, IProcessInfo)
 
-
-    #this starts to get painful, not needed here it's just the dumb loader
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
         
     def description(self):
         return "Process information"

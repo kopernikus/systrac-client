@@ -42,9 +42,9 @@ class PackageManagerModule(Component):
         self.log.debug("Got IServiceManager providers %s" % self.children)
         
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
         
     def description(self):
         return "Package management"
@@ -77,9 +77,11 @@ class AptPackageManager(Component):
                 'errors':[]}
                 
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', 'ALL')
-        yield ('linux', 'debian', 'ALL')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      if p == 'linux' and f in ['debian', 'ubuntu']:
+          return True
+      return False
         
     def description(self):
         return "apt package management"

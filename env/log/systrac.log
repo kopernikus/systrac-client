@@ -13637,3 +13637,159 @@
 2010-01-10 15:20:08,945 SysTrac[core] DEBUG: Adding provider SystemBaseModule for path /system
 2010-01-10 15:20:08,945 SysTrac[core] DEBUG: Adding provider MonitoringBaseModule for path /monitoring
 2010-01-10 15:20:08,945 SysTrac[core] DEBUG: Adding provider ConfigBaseModule for path /etc
+2010-01-10 16:50:32,291 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 16:50:32,332 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 16:50:32,333 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 16:50:32,351 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 16:50:32,354 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 16:50:32,354 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 16:50:32,358 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 16:50:32,361 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 16:50:32,363 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 16:50:32,364 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 16:56:07,637 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 16:56:07,682 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 16:56:07,682 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 16:56:07,704 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 16:56:07,706 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 16:56:07,707 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 16:56:07,721 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 16:56:07,723 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 16:56:07,724 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 16:56:07,725 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 16:57:41,370 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 16:57:41,411 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 16:57:41,412 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 16:57:41,429 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 16:57:41,432 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 16:57:41,432 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 16:57:41,441 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 16:57:41,443 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 16:57:41,445 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 16:57:41,446 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:01:12,792 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 17:01:12,832 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 17:01:12,833 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 17:01:12,852 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 17:01:12,855 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 17:01:12,855 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 17:01:12,860 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 17:01:12,867 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 17:01:12,870 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 17:01:12,870 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:04:24,681 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 17:04:24,722 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 17:04:24,723 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 17:04:24,745 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 17:04:24,749 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 17:04:24,749 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 17:04:24,754 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 17:04:24,756 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 17:04:24,758 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 17:04:24,759 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:04:24,761 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:05:45,056 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 17:05:45,097 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 17:05:45,097 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 17:05:45,119 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 17:05:45,122 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 17:05:45,123 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 17:05:45,128 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 17:05:45,130 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 17:05:45,132 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 17:05:45,133 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:05:45,134 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:05:45,135 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,679 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 17:11:59,728 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 17:11:59,729 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 17:11:59,748 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 17:11:59,758 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 17:11:59,760 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 17:11:59,763 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 17:11:59,769 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 17:11:59,772 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 17:11:59,772 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,773 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,775 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,777 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,778 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,778 SysTrac[services] DEBUG: Got IServiceManager providers [<services.SysVServiceModule object at 0x898bfcc>, <services.UpstartServiceModule object at 0x898bfac>]
+2010-01-10 17:11:59,779 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,780 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,781 SysTrac[packages] DEBUG: Got IServiceManager providers [<packages.AptPackageManager object at 0x89b606c>]
+2010-01-10 17:11:59,781 SysTrac[base] DEBUG: ISystemModule Providers: [<processes.ProcessModule object at 0x898beec>, <services.ServiceModule object at 0x898bf0c>, <packages.PackageManagerModule object at 0x898bf2c>]
+2010-01-10 17:11:59,782 SysTrac[base] DEBUG: Adding provider ProcessModule for path /processes
+2010-01-10 17:11:59,782 SysTrac[base] DEBUG: Adding provider ServiceModule for path /services
+2010-01-10 17:11:59,782 SysTrac[base] DEBUG: Adding provider PackageManagerModule for path /packages
+2010-01-10 17:11:59,782 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,791 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,792 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:11:59,793 SysTrac[monitoring] DEBUG: IMonitoringModule Providers: [<monitoring.MuninNodeProxy object at 0x898bfec>, <monitoring.MuninModule object at 0x89b608c>]
+2010-01-10 17:11:59,793 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,728 SysTrac[loader] DEBUG: Loader got plugin_dir /home/pkoelle/systrac-client/env/modules
+2010-01-10 17:14:14,772 SysTrac[loader] DEBUG: _load_py_files found plugins ['/home/pkoelle/systrac-client/env/modules/processes.py', '/home/pkoelle/systrac-client/env/modules/services.py', '/home/pkoelle/systrac-client/env/modules/base.py', '/home/pkoelle/systrac-client/env/modules/monitoring.py', '/home/pkoelle/systrac-client/env/modules/packages.py', '/home/pkoelle/systrac-client/env/modules/etc.py']
+2010-01-10 17:14:14,772 SysTrac[loader] DEBUG: Loading file plugin processes from /home/pkoelle/systrac-client/env/modules/processes.py
+2010-01-10 17:14:14,793 SysTrac[loader] DEBUG: Loading file plugin services from /home/pkoelle/systrac-client/env/modules/services.py
+2010-01-10 17:14:14,797 SysTrac[loader] DEBUG: Loading file plugin base from /home/pkoelle/systrac-client/env/modules/base.py
+2010-01-10 17:14:14,797 SysTrac[loader] DEBUG: Loading file plugin monitoring from /home/pkoelle/systrac-client/env/modules/monitoring.py
+2010-01-10 17:14:14,800 SysTrac[loader] DEBUG: Loading file plugin packages from /home/pkoelle/systrac-client/env/modules/packages.py
+2010-01-10 17:14:14,802 SysTrac[loader] DEBUG: Loading file plugin etc from /home/pkoelle/systrac-client/env/modules/etc.py
+2010-01-10 17:14:14,812 SysTrac[loader] DEBUG: _load_py_files found plugins []
+2010-01-10 17:14:14,813 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,815 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,816 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,817 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,818 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,820 SysTrac[services] DEBUG: Got IServiceManager providers [<services.SysVServiceModule object at 0x8a1a0cc>, <services.UpstartServiceModule object at 0x8a1a0ac>]
+2010-01-10 17:14:14,820 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,821 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,822 SysTrac[packages] DEBUG: Got IServiceManager providers [<packages.AptPackageManager object at 0x8a1a14c>]
+2010-01-10 17:14:14,823 SysTrac[base] DEBUG: ISystemModule Providers: [<processes.ProcessModule object at 0x89c044c>, <services.ServiceModule object at 0x89c0fec>, <packages.PackageManagerModule object at 0x8a1a62c>]
+2010-01-10 17:14:14,823 SysTrac[base] DEBUG: Adding provider ProcessModule for path /processes
+2010-01-10 17:14:14,823 SysTrac[base] DEBUG: Adding provider ServiceModule for path /services
+2010-01-10 17:14:14,824 SysTrac[base] DEBUG: Adding provider PackageManagerModule for path /packages
+2010-01-10 17:14:14,824 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,833 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,835 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,836 SysTrac[monitoring] DEBUG: IMonitoringModule Providers: [<monitoring.MuninNodeProxy object at 0x8a1a0ec>, <monitoring.MuninModule object at 0x8a1a16c>]
+2010-01-10 17:14:14,836 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,838 SysTrac[env] INFO: My platform: linux (ubuntu, version: 9.04)
+
+2010-01-10 17:14:14,839 SysTrac[etc] DEBUG: IConfigModule Providers: [<etc.MuninConfig object at 0x8a1a1ac>]
+2010-01-10 17:14:14,840 SysTrac[etc] DEBUG: Adding provider MuninConfig for path /munin
+2010-01-10 17:14:14,840 SysTrac[core] DEBUG:  Providers: [<base.SystemBaseModule object at 0x89c0eec>, <monitoring.MonitoringBaseModule object at 0x894d56c>, <etc.ConfigBaseModule object at 0x8a1a08c>]
+2010-01-10 17:14:14,882 SysTrac[core] DEBUG: Adding provider SystemBaseModule for path /system
+2010-01-10 17:14:14,882 SysTrac[core] DEBUG: Adding provider MonitoringBaseModule for path /monitoring
+2010-01-10 17:14:14,882 SysTrac[core] DEBUG: Adding provider ConfigBaseModule for path /etc

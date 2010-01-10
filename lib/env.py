@@ -157,13 +157,8 @@ class Environment(Component, ComponentManager):
         r = self.config.get('systrac', 'release')
         self.log.info("My platform: %s (%s, version: %s)\n" % (p, f, r))
         try:
-            for supported in cls.supported_plattform():
-                self.log.debug("%s supports: %s (%s, version: %s)\n" % (
-                            (cls.__name__,)+supported))
-                if supported == (p, f, r) or supported == (p, f, 'ALL'):
-                    return True
-            return False
-            
+            print "Checking supported_platform on %s" % cls.__name__
+            return cls.supported_plattform(p, f, r)
         except NotImplementedError, e:
             self.log.warn("%s Does not support the platform (%s, %s, %s) for this host.\n" % (
                         cls.__name__, p, f, r))

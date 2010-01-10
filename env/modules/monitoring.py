@@ -36,9 +36,9 @@ class MonitoringBaseModule(Component):
     children = ExtensionPoint(IMonitoringModule)
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
         
     def __init__(self):
         self.log.debug("IMonitoringModule Providers: %s" % self.children)
@@ -88,9 +88,10 @@ class MuninNodeProxy(Component):
     proxy_hosts = ListOption('munin', 'proxy_hosts', 'localhost')
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      #FIXME check for running munin-node
+      return True
         
     def nodes(self):
         return self.proxy_hosts
@@ -144,10 +145,10 @@ class MuninModule(Component):
     result = {'status':200, 'data': {}, 'errors':[]}
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
-        
+    def supported_plattform(cls, p, f, r):
+        """check plattform, flavour, release"""
+        #FIXME check for munin files (rrds)
+        return True
 
     def nodes(self):
         "return domains and hosts"

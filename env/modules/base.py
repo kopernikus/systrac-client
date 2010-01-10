@@ -29,9 +29,9 @@ class SystemBaseModule(Component):
     children = ExtensionPoint(ISystemModule)
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
     
     def __init__(self):
         self.log.debug("ISystemModule Providers: %s" % self.children)

@@ -58,9 +58,11 @@ class SysVServiceModule(Component):
                 'errors':[]}
                 
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      if p == 'linux' and f in ['debian', 'ubuntu']:
+          return True
+      return False
       
     def index(self):
         return self.json.dumps(
@@ -127,8 +129,11 @@ class UpstartServiceModule(Component):
                 'errors':[]}
                 
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '10.04')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      if p == 'linux' and f in ['debian', 'ubuntu'] and r >= 10.4:
+          return True
+      return False
         
     def description(self):
         return "Service management with Upstart"
@@ -161,9 +166,9 @@ class ServiceModule(Component):
         
     #FIXME: collect all platforms from self.children
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
         
     def description(self):
         return "Service management"

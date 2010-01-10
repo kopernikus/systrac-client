@@ -27,12 +27,12 @@ class ConfigBaseModule(Component):
     children = ExtensionPoint(IConfigModule)
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      return True
         
     def __init__(self):
-        self.log.debug("IMonitoringModule Providers: %s" % self.children)
+        self.log.debug("IConfigModule Providers: %s" % self.children)
         for provider in self.children:
             path = provider.get_path()
             provider.exposed = True
@@ -58,9 +58,10 @@ class MuninConfig(Component):
     munin_conf = Option('munin', 'munin_conf', '/etc/munin/munin.conf')
     
     @classmethod
-    def supported_plattform(cls):
-        yield ('linux', 'ubuntu', '9.04')
-        yield ('linux', 'debian', '5.0')
+    def supported_plattform(cls, p, f, r):
+      """check plattform, flavour, release"""
+      #FIXME check for munin installation
+      return True
         
     def get_path(self):
         return 'munin'

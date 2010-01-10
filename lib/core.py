@@ -176,10 +176,9 @@ class Component(object):
         locals_.setdefault('_implements', []).extend(interfaces)
 
     @classmethod
-    def supported_plattform(cls):
+    def supported_plattform(cls, platform, flavour, release):
         """ALL Components need to implement this!!
-        @returns, a generator or list with tuples of the form
-        (platform,  flavour, release), for example ('linux', 'debian', '5.0')"""
+        @returns True or False"""
         raise NotImplementedError
         
 implements = Component.implements
@@ -210,11 +209,11 @@ class ComponentManager(object):
         component = self.components.get(cls)
         if not component:
             if cls not in ComponentMeta._components:
-                raise TracError('Component "%s" not registered' % cls.__name__)
+                raise SysTracError('Component "%s" not registered' % cls.__name__)
             try:
                 component = cls(self)
             except TypeError, e:
-                raise TracError('Unable to instantiate component %r (%s)' %
+                raise SysTracError('Unable to instantiate component %r (%s)' %
                                 (cls, e))
         #print "ComponentManager.__getitem__, returning %s" % component
         return component
