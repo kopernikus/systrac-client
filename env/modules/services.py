@@ -54,7 +54,7 @@ class SysVServiceModule(Component):
     
         self.answer = {
                 'status':None,
-                'result': None,
+                'content': [],
                 'errors':[]}
                 
     @classmethod
@@ -73,51 +73,47 @@ class SysVServiceModule(Component):
         raw =  [e for e in os.listdir('/etc/init.d')
                 if not e.endswith('.sh')]
         srv = [e for e in raw if e not in self.blacklist]
-        return self.json.dumps({'services': srv, 'errors': []})
+        return self.json.dumps({'status': 200, 'content': [srv]})
 
  
     def start(self, name):
-        if os.path.isfile(joinpath(self.basedir, name)):
-            return self.json.dumps({
-                'service': name,
-                'status':'started',
-                'result': 'success',
-                'errors':[]})
-        return self.json.dumps({'result':'fail', 'errors':['NOTFOUND']})
+        cmd = joinpath(self.basedir, name)
+        if self._filter_cmd(cmd):
+            out, err = self._run_cmd(cmd, 'start')
+            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+        return self.json.dumps({'status':404, 'errors':['service not found']})
         
     def status(self, name):
         cmd = joinpath(self.basedir, name)
-        if os.path.isfile(cmd):
-            p = Popen(cmd+' status', stderr=PIPE, stdout=PIPE, shell=True)
-            ret = p.wait()
-            res = p.stdout.read()
-            err = p.stderr.read()
-            return self.json.dumps({
-                'service': name,
-                'status':ret,
-                'result': res,
-                'errors':[err]})
-        return self.json.dumps({'result':'fail', 'errors':['NOTFOUND']})
+        if self._filter_cmd(cmd):
+            out, err = self._run_cmd(cmd, 'status')
+            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+        return self.json.dumps({'status':404, 'errors':['service not found']})
         
     def stop(self, name):
-        if os.path.isfile(joinpath(self.basedir, name)):
-            return self.json.dumps({
-                'service': name,
-                'status':'sucess',
-                'result': 'stopped',
-                'errors':[]})
-        else:
-            return self.json.dumps({
-                'status':'fail',
-                'result': 'unknown',
-                'errors':['NOTFOUND']})
+        cmd = joinpath(self.basedir, name)
+        if self._filter_cmd(cmd):
+            out, err = self._run_cmd(cmd, 'stop')
+            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+        return self.json.dumps({'status':404, 'errors':['NOTFOUND']})
     
     def restart(self, name):
-        if os.path.isfile(joinpath(self.basedir, name)):
-            return self.json.dumps({
-                'status':'success',
-                'result': 'started',
-                'errors':[]})
+        cmd = joinpath(self.basedir, name)
+        if self._filter_cmd(cmd):
+            out, err = self._run_cmd(cmd, 'restart')
+            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+        return self.json.dumps({'status':404, 'errors':['service not found']})
+
+
+    def _filter_cmd(self, cmd):
+        if os.path.isfile(cmd) and name not in self.blacklist:
+           return True
+        return False
+
+    def _run_cmd(self, cmd, args):
+        p = Popen(cmd+' '.join(args), stderr=PIPE, stdout=PIPE, shell=True)
+        p.wait()
+        return p.stdout.read(), p.stderr.read()
 
 class UpstartServiceModule(Component):
     implements(IServiceManager)
@@ -125,7 +121,7 @@ class UpstartServiceModule(Component):
     def __init__(self):
         self.answer = {
                 'status':None,
-                'result': None,
+                'response': [],
                 'errors':[]}
                 
     @classmethod
@@ -168,7 +164,7 @@ class ServiceModule(Component):
     @classmethod
     def supported_plattform(cls, p, f, r):
       """check plattform, flavour, release"""
-      return True
+      return default_manager.supported_platform(p, f, r)
         
     def description(self):
         return "Service management"
