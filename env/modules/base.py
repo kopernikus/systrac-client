@@ -3,28 +3,25 @@
 # Copyright (C) 2009 Paul Kölle
 # All rights reserved.
 
-import os
-from os.path import join as joinpath
-from subprocess import Popen, PIPE
-from config import Option, ExtensionOption
-from core import implements, Component, ExtensionPoint,\
-        IBaseModuleProvider, SysTracError, Interface
+from env import Environment
 
+from core import implements, Component, ExtensionPoint, SysTracError
+from interfaces import ISystemModule, IBaseModule
 import cherrypy as cp
 
-class ISystemModule(Interface):
-    """A module for handling system tasks or providing
-    system related information"""
-    
-    def description():
-        """return a string describing the module"""
-
-    def get_path():
-        """the url path"""
+#setup the set_content_type Tool before loading any pagehandlers
+def set_content_type(ct=None):
+    if cp.response.status == 404:
+        return # probably all but 2xx unless errors are convertet to json too
+    if ct:
+        cp.response.headers['Content-Type'] = ct
+    else:
+        cp.response.headers['Content-Type'] = self.default_content_type
+cp.tools.set_content_type = cp.Tool('before_finalize', set_content_type)
 
 
 class SystemBaseModule(Component):
-    implements(IBaseModuleProvider)
+    implements(IBaseModule)
 
     children = ExtensionPoint(ISystemModule)
     
@@ -38,7 +35,7 @@ class SystemBaseModule(Component):
         for provider in self.children:
             path = provider.get_path()
             provider.exposed = True
-            self.log.debug("Adding provider %s for path /%s" % (provider.__class__.__name__, path))
+            #self.log.debug("Adding provider %s for path /%s" % (provider.__class__.__name__, path))
             setattr(self, path, provider)
                 
     # the IBaseModuleProvider
@@ -53,3 +50,27 @@ class SystemBaseModule(Component):
 
         
         
+class Dispatcher(Component):
+    children = ExtensionPoint(IBaseModule)
+
+    def __init__(self, *args):
+        # add IBaseModuleProviders as direct pagehandlers
+        #self.log.debug(" Providers: %s" % self.children)
+        self.subpaths = []
+        for provider in self.children:
+            path = provider.get_path()
+            provider.exposed = True
+            self.log.debug("Adding provider %s for path /%s" % (provider.__class__.__name__, path))
+            print "Adding provider %s for path /%s" % (provider.__class__.__name__, path)
+            setattr(self, path, provider)
+            self.subpaths.append(path)
+
+
+    def __call__(self, host, port):
+        cp.server.socket_host = host
+        cp.server.socket_port = port
+        cp.quickstart(self)
+
+    @cp.expose
+    def index(self, *args, **kwargs):
+        return self.json.dumps({"children": self.subpaths})

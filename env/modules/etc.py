@@ -8,21 +8,13 @@ from os.path import join as joinpath
 from subprocess import Popen, PIPE
 
 from config import Option
-from core import implements, Component, ExtensionPoint,\
-        IBaseModuleProvider, SysTracError, Interface
+from core import implements, Component, ExtensionPoint, SysTracError
 import cherrypy as cp
 
-class IConfigModule(Interface):
-    """access to /etc"""
-    
-    def description():
-        """return a string describing the module"""
-
-    def get_path():
-        """the url path"""
+from interfaces import IConfigModule, IBaseModule
         
 class ConfigBaseModule(Component):
-    implements(IBaseModuleProvider)
+    implements(IBaseModule)
 
     children = ExtensionPoint(IConfigModule)
     

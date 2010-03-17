@@ -9,25 +9,13 @@ from os.path import join as joinpath
 import cherrypy as cp
 
 from subprocess import Popen, PIPE
-from core import implements, Component, ExtensionPoint,\
-        IBaseModuleProvider, SysTracError, Interface
+from core import implements, Component, ExtensionPoint, SysTracError
 from config import Option, IntOption, ListOption
 
+from interfaces import IMonitoringModule, IBaseModule
 
-class IMonitoringModule(Interface):
-    """Implementors provide one or more (performance) metrics."""
-    
-    def description():
-        """return a string describing the module"""
-  
-    def metrics():
-      """return a list of metrics"""
-      
-    def values( *metrics):
-      """return values for all metrics in the *metrics list"""
-      
 class MonitoringBaseModule(Component):
-    implements(IBaseModuleProvider)
+    implements(IBaseModule)
 
     children = ExtensionPoint(IMonitoringModule)
     
@@ -38,7 +26,8 @@ class MonitoringBaseModule(Component):
         
     def __init__(self):
         self.log.debug("IMonitoringModule Providers: %s" % self.children)
-            
+        self._cached_children = {}
+
     def get_path(self):
         return 'monitoring'
 
@@ -56,18 +45,27 @@ class MonitoringBaseModule(Component):
     #IMonitoringModule methods
     @cp.expose
     @cp.tools.set_content_type()
-    def metrics(self, host):
+    def metrics(self):
         res = []
-        for c in self.children:
-            res.append(c.metrics(host))
+        for child in self.children:
+            r = child.metrics()
+            if r:
+                self._cached_children[child] = r
+                res.extend(r)
         return self.json.dumps(res)
         
     @cp.expose
     @cp.tools.set_content_type()
-    def values(self, host, *metrics):
-        res = []
-        for c in self.children:
-            res.append(c.values(host, *metrics))
+    def values(self, *metrics):
+        print "MonitoringModule.values() called with metrics %s(%s)" % (metrics, type(metrics))
+        res =[]
+        if self._cached_children:
+            for child,metrics in self._cached_children.items():
+                res.extend(child.metrics(*metrics))
+            return self.json.dumps(res)
+
+        for child in self.children:
+            res.extend(child.values( *metrics))
         return self.json.dumps(res)
         
 class MuninNodeProxy(Component):
@@ -78,7 +76,7 @@ class MuninNodeProxy(Component):
     @classmethod
     def supported_plattform(cls, p, f, r):
       """check plattform, flavour, release"""
-      #FIXME check for running munin-node (open socket on localhost:4949)
+      #FIXME: check for running munin-node (open socket on localhost:4949)
       return True
         
     def metrics(self):
@@ -115,20 +113,5 @@ class MuninNodeProxy(Component):
             pass
         return data.strip().split('\n')
         
-class PCPProxy(Component):
-    implements(IMonitoringModule)
 
-    @classmethod
-    def supported_plattform(cls, p, f, r):
-      """check plattform, flavour, release"""
-      #FIXME check for running pmcd (open socket on localhost:4949)
-      return True
-
-    def metrics(self):
-        """get a list of metrics"""
-        pass
-
-    def values(self, *metric):
-        """get current values for each metric in *metrics"""
-        pass
 

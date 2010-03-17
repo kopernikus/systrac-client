@@ -2,30 +2,15 @@ import os
 from os.path import join as joinpath
 from subprocess import Popen, PIPE
 from config import Option, ExtensionOption
-from core import implements, Component, ExtensionPoint,\
-        SysTracError, Interface
+from core import implements, Component, ExtensionPoint, SysTracError
 
 import cherrypy as cp
 
-from base import ISystemModule
+from interfaces import ISystemModule, IServiceManager
 
 
 
-class IServiceManager(Interface):
-    def start(name):
-        """start a service"""
-    
-    def restart(name):
-        """restart a service"""
-    
-    def stop(name):
-        """stop a service"""
-        
-    def list():
-        """list available services"""
-        
-    def status():
-        """return service status"""
+
 
 
             
@@ -119,10 +104,7 @@ class UpstartServiceModule(Component):
     implements(IServiceManager)
     
     def __init__(self):
-        self.answer = {
-                'status':None,
-                'response': [],
-                'errors':[]}
+        self.answer = { 'status':None, 'response': [], 'errors':[]}
                 
     @classmethod
     def supported_plattform(cls, p, f, r):
@@ -154,8 +136,8 @@ class ServiceModule(Component):
     
     children = ExtensionPoint(IServiceManager)
     #default service manager
-    default_manager = ExtensionOption('systrac', 'default_service_manager', 
-                              IServiceManager)
+    default_manager = ExtensionOption('systrac', 'service_manager', 
+                              IServiceManager, default=SysVServiceModule)
   
     def __init__(self):
         self.log.debug("Got IServiceManager providers %s" % self.children)
@@ -164,7 +146,7 @@ class ServiceModule(Component):
     @classmethod
     def supported_plattform(cls, p, f, r):
       """check plattform, flavour, release"""
-      return default_manager.supported_platform(p, f, r)
+      return cls.default_manager.default.supported_plattform(p, f, r)
         
     def description(self):
         return "Service management"

@@ -29,7 +29,7 @@ except ImportError:
     try: 
         import simplejson as json
     except ImportError:
-        raise SysTracError("no usable json module found")
+        raise ImportError("no usable json module found")
 
 import core
 from config import *
@@ -40,7 +40,8 @@ from util.text import exception_to_unicode, printerr, printout
 
 import cherrypy as cp
 
-__all__ = ['Environment', 'open_environment']
+
+__all__ = ['Environment']
 
 
 class Environment(Component, ComponentManager):
@@ -48,7 +49,6 @@ class Environment(Component, ComponentManager):
     
     log_type = Option('logging', 'log_type', 'none',
         """Logging facility to use.
-        
         Should be one of (`none`, `file`, `stderr`, `syslog`, `winlog`).""")
 
     log_file = Option('logging', 'log_file', 'systrac.log',
@@ -56,12 +56,10 @@ class Environment(Component, ComponentManager):
 
     log_level = Option('logging', 'log_level', 'DEBUG',
         """Level of verbosity in log.
-        
         Should be one of (`CRITICAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`).""")
 
     log_format = Option('logging', 'log_format', None,
         """Custom logging format.
-
         If nothing is set, the following will be used:
         
         Trac[$(module)s] $(levelname)s: $(message)s
@@ -114,15 +112,6 @@ class Environment(Component, ComponentManager):
             ('setuptools', setuptools.__version__),
             ]
 
-        #setup the set_content_type Tool before loading any pagehandlers
-        def set_content_type(ct=None):
-            if cp.response.status == 404: 
-                return # probably all but 2xx unless errors are convertet to json too
-            if ct:
-                cp.response.headers['Content-Type'] = ct
-            else:
-                cp.response.headers['Content-Type'] = self.default_content_type
-        cp.tools.set_content_type = cp.Tool('before_finalize', set_content_type)
         
         from loader import load_components
         #FIXME: remove hardcoded string, reenable config
@@ -145,7 +134,6 @@ class Environment(Component, ComponentManager):
         
         #add a reference to the json module for convenience
         component.json = json
-        component.default_content_type = self.default_content_type
         
     def is_component_enabled(self, cls):
         """FIXME: make comparison case insensitive"""
@@ -157,7 +145,7 @@ class Environment(Component, ComponentManager):
         r = self.config.get('systrac', 'release')
         self.log.info("My platform: %s (%s, version: %s)\n" % (p, f, r))
         try:
-            print "Checking supported_platform on %s" % cls.__name__
+            #print "Checking supported_platform on %s" % cls.__name__
             return cls.supported_plattform(p, f, r)
         except NotImplementedError, e:
             self.log.warn("%s Does not support the platform (%s, %s, %s) for this host.\n" % (

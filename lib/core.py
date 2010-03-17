@@ -15,7 +15,6 @@
 #
 # Author: Jonas Borgström <jonas@edgewall.com>
 #         Christopher Lenz <cmlenz@gmx.de>
-import cherrypy as cp
 
 __all__ = ['Component', 'ExtensionPoint', 'implements', 'Interface',
            'SysTracError']
@@ -29,16 +28,10 @@ class SysTracError(Exception):
     title = 'SysTrac Error'
     
     def __init__(self, message, title=None, show_traceback=False):
-        """If message is a genshi.builder.tag object, everything up to the
-        first <p> will be displayed in the red box, and everything after will
-        be displayed below the red box.
-        If title is given, it will be displayed as the large header above the
-        error message.
-        """
+        """ """
         Exception.__init__(self, message)
         self.message = message
-        if title:
-            self.title = title
+        self.title = title or ""
         self.show_traceback = show_traceback
 
     def __unicode__(self):
@@ -242,39 +235,5 @@ class ComponentManager(object):
         """
         return True
 
-class IBaseModuleProvider(Interface):
-    def get_path():
-        """return the PATH the provider claims ownership for"""
-        pass
- 
-    def index(*args, **kwargs):
-        """the default handler"""
-        pass
-        
-class Dispatcher(Component):
-    children = ExtensionPoint(IBaseModuleProvider)
-  
-
-    def __init__(self, *args):
-        
-        # add IBaseModuleProviders as direct pagehandlers
-        self.log.debug(" Providers: %s" % self.children)
-        self.subpaths = []
-        for provider in self.children:
-            path = provider.get_path()
-            provider.exposed = True
-            self.log.debug("Adding provider %s for path /%s" % (provider.__class__.__name__, path))
-            setattr(self, path, provider)
-            self.subpaths.append(path)
-
-
-    def __call__(self, host, port):
-        cp.server.socket_host = host
-        cp.server.socket_port = port
-        cp.quickstart(self)
-            
-    @cp.expose
-    def index(self, *args, **kwargs):
-        return self.json.dumps({"children": self.subpaths})
     
 

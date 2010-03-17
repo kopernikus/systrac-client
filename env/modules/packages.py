@@ -1,34 +1,20 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2009 Paul Kölle
+# All rights reserved.
+
 import os
 from os.path import join as joinpath
 from subprocess import Popen, PIPE
 from config import Option, ExtensionOption
 from core import implements, Component, ExtensionPoint,\
-        SysTracError, Interface
-from base import ISystemModule
+        SysTracError
+
+from interfaces import IPackageManager, ISystemModule
 
 import cherrypy as cp
 
-class IPackageManager(Interface):
-    def search(pkgname):
-      "search for package"
-      
-    def install(pkgname):
-        """install/update a package"""
-      
-    def remove(pkgname):
-      """uninstall package"""
-      
-    def update():
-        """update the package database"""
-    
-    def upgrade():
-        """perform system upgrade"""
-        
-    def updates():
-        """list packages with new versions"""
-    
-    def info(pkgname):
-        """detailed info for package 'name'"""
+
 
 class PackageManagerModule(Component):
     implements(ISystemModule)
@@ -39,12 +25,12 @@ class PackageManagerModule(Component):
                               IPackageManager)
   
     def __init__(self):
-        self.log.debug("Got IServiceManager providers %s" % self.children)
+        self.log.debug("Got IPackageManager providers %s" % self.children)
         
     @classmethod
-    def supported_plattform(cls, p, f, r):
+    def supported_platform(cls, p, f, r):
       """check plattform, flavour, release"""
-      return True
+      return self.default_manager.default.supported_plattform(p, f, r)
         
     def description(self):
         return "Package management"
@@ -102,7 +88,7 @@ class AptPackageManager(Component):
 
     def info(self, pkgname):
         out = self.answer.copy()
-        res = {}; missing = False
+        res = {}
         p = Popen('dpkg -s %s' % pkgname, shell=True, stdout=PIPE, stderr=PIPE)
         err = p.stderr.read()
         if err: 

@@ -4,20 +4,12 @@ from subprocess import Popen, PIPE
 from config import Option, ExtensionOption
 from core import implements, Component, ExtensionPoint,\
         SysTracError, Interface
-from base import ISystemModule
 
+from interfaces import IProcessInfo, ISystemModule
 import cherrypy as cp
 import psutil
 
-class IProcessInfo(Interface):
-    def info(pid):
-        "return a json dict with process information"
-    
-    def list():
-        "return a list of running processes"
-    
-    def kill(pid):
-        """kill process by pid"""
+
         
 class ProcessModule(Component):
     implements(ISystemModule, IProcessInfo)
@@ -71,6 +63,6 @@ class ProcessModule(Component):
     @cp.tools.set_content_type()
     def index(self):
         return self.json.dumps(
-            {'methods':['list', 'info(pid)'],
+            {'methods':['list', 'info(pid)', 'kill(pid)'],
              'desc': "process information"})
 
