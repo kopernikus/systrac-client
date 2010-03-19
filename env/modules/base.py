@@ -3,8 +3,6 @@
 # Copyright (C) 2009 Paul Kölle
 # All rights reserved.
 
-from env import Environment
-
 from core import implements, Component, ExtensionPoint, SysTracError
 from interfaces import ISystemModule, IBaseModule
 import cherrypy as cp
@@ -16,7 +14,7 @@ def set_content_type(ct=None):
     if ct:
         cp.response.headers['Content-Type'] = ct
     else:
-        cp.response.headers['Content-Type'] = self.default_content_type
+        cp.response.headers['Content-Type'] = 'application/json' #self.default_content_type
 cp.tools.set_content_type = cp.Tool('before_finalize', set_content_type)
 
 
@@ -49,7 +47,7 @@ class SystemBaseModule(Component):
         return self.json.dumps({"children": subpaths})
 
         
-        
+#fixme, use one of the cherrypy dispatchers
 class Dispatcher(Component):
     children = ExtensionPoint(IBaseModule)
 

@@ -21,7 +21,7 @@ class PackageManagerModule(Component):
     
     children = ExtensionPoint(IPackageManager)
     #default package manager
-    default_manager = ExtensionOption('systrac', 'default_package_manager', 
+    default_manager = ExtensionOption('systrac', 'package_manager', 
                               IPackageManager)
   
     def __init__(self):

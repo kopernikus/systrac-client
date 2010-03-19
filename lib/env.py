@@ -134,7 +134,7 @@ class Environment(Component, ComponentManager):
         
         #add a reference to the json module for convenience
         component.json = json
-        
+
     def is_component_enabled(self, cls):
         """FIXME: make comparison case insensitive"""
         whitelist = ['Dispatcher']

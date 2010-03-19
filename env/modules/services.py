@@ -8,13 +8,8 @@ import cherrypy as cp
 
 from interfaces import ISystemModule, IServiceManager
 
-
-
-
-
-
             
-class SysVServiceModule(Component):
+class SysVServiceManager(Component):
     implements(IServiceManager)
     
     def __init__(self):
@@ -64,43 +59,46 @@ class SysVServiceModule(Component):
     def start(self, name):
         cmd = joinpath(self.basedir, name)
         if self._filter_cmd(cmd):
-            out, err = self._run_cmd(cmd, 'start')
-            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+            ret, out, err = self._run_cmd(cmd, 'start')
+            return self.json.dumps({'status':ret, 'response':[out], 'errors':[err]})
         return self.json.dumps({'status':404, 'errors':['service not found']})
         
     def status(self, name):
         cmd = joinpath(self.basedir, name)
         if self._filter_cmd(cmd):
-            out, err = self._run_cmd(cmd, 'status')
-            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+            ret, out, err = self._run_cmd(cmd, 'status')
+            return self.json.dumps({'status':ret, 'response':[out], 'errors':[err]})
         return self.json.dumps({'status':404, 'errors':['service not found']})
         
     def stop(self, name):
         cmd = joinpath(self.basedir, name)
         if self._filter_cmd(cmd):
-            out, err = self._run_cmd(cmd, 'stop')
-            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
-        return self.json.dumps({'status':404, 'errors':['NOTFOUND']})
+            ret, out, err = self._run_cmd(cmd, 'stop')
+            return self.json.dumps({'status':ret, 'response':[out], 'errors':[err]})
+        return self.json.dumps({'status':404, 'errors':['service not found']})
     
     def restart(self, name):
         cmd = joinpath(self.basedir, name)
         if self._filter_cmd(cmd):
-            out, err = self._run_cmd(cmd, 'restart')
-            return self.json.dumps({'status':201, 'response':[out], 'errors':[err]})
+            ret, out, err = self._run_cmd(cmd, 'restart')
+            return self.json.dumps({'status':ret, 'response':[out], 'errors':[err]})
         return self.json.dumps({'status':404, 'errors':['service not found']})
 
 
     def _filter_cmd(self, cmd):
-        if os.path.isfile(cmd) and name not in self.blacklist:
+        if os.path.isfile(cmd) and os.path.basename(cmd) not in self.blacklist:
            return True
         return False
 
-    def _run_cmd(self, cmd, args):
-        p = Popen(cmd+' '.join(args), stderr=PIPE, stdout=PIPE, shell=True)
-        p.wait()
-        return p.stdout.read(), p.stderr.read()
+    def _run_cmd(self, cmd, action):
+        #print "command passed to Popen: %s" % cmd+' '+action
+        p = Popen(cmd+' '+action, stderr=PIPE, stdout=PIPE, shell=True)
+        out, err = p.communicate()
+        if p.returncode != 0:
+            return p.returncode, None, err+'\n'+out
+        return p.returncode, out or None, err or None
 
-class UpstartServiceModule(Component):
+class UpstartServiceManager(Component):
     implements(IServiceManager)
     
     def __init__(self):
@@ -137,7 +135,7 @@ class ServiceModule(Component):
     children = ExtensionPoint(IServiceManager)
     #default service manager
     default_manager = ExtensionOption('systrac', 'service_manager', 
-                              IServiceManager, default=SysVServiceModule)
+                              IServiceManager, default=SysVServiceManager)
   
     def __init__(self):
         self.log.debug("Got IServiceManager providers %s" % self.children)
@@ -162,12 +160,12 @@ class ServiceModule(Component):
     @cp.expose
     @cp.tools.set_content_type()
     def stop(self, name):
-        return self.default_manager.start(name)
+        return self.default_manager.stop(name)
     
     @cp.expose
     @cp.tools.set_content_type()
     def restart(self, name):
-        return self.default_manager.start(name)
+        return self.default_manager.restart(name)
         
     @cp.expose
     @cp.tools.set_content_type()
