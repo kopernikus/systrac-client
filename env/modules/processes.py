@@ -61,6 +61,18 @@ class ProcessModule(Component):
 
     @cp.expose
     @cp.tools.set_content_type()
+    def kill(self, pid):
+        try: pid = int(pid)
+        except ValueError, e: raise cp.HTTPError(404)
+
+        try:
+            os.kill(pid, 15) #SIGTERM
+        except OSError, e:
+            cp.response.headers['Content-Type'] = 'text/plain'
+            raise cp.HTTPError(403)
+        
+    @cp.expose
+    @cp.tools.set_content_type()
     def index(self):
         return self.json.dumps(
             {'methods':['list', 'info(pid)', 'kill(pid)'],
