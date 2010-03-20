@@ -26,7 +26,7 @@ class MonitoringBaseModule(Component):
         
     def __init__(self):
         self.log.debug("IMonitoringModule Providers: %s" % self.children)
-        self._cached_children = {}
+        self._cached_metrics = {}
 
     def get_path(self):
         return 'monitoring'
@@ -38,10 +38,9 @@ class MonitoringBaseModule(Component):
             {'methods':['metrics', 'values(*metrics)'],
              'desc': "monitoring info"})
 
-
     def default(self, *args, **kwargs):
         return "Default called: %s, %s -- %s" % (args, kwargs, request)
-        
+  
     #IMonitoringModule methods
     @cp.expose
     @cp.tools.set_content_type()
@@ -50,16 +49,15 @@ class MonitoringBaseModule(Component):
         for child in self.children:
             r = child.metrics()
             if r:
-                self._cached_children[child] = r
+                self._cached_metrics[child] = r
                 res.extend(r)
         return self.json.dumps(res)
         
     @cp.expose
     @cp.tools.set_content_type()
     def values(self, *metrics):
-        print "MonitoringModule.values() called with metrics %s(%s)" % (metrics, type(metrics))
         res =[]
-        if self._cached_children:
+        if self._cached_metrics:
             for child,metrics in self._cached_children.items():
                 res.extend(child.metrics(*metrics))
             return self.json.dumps(res)
@@ -78,9 +76,9 @@ class MuninNodeProxy(Component):
       """check plattform, flavour, release"""
       #FIXME: check for running munin-node (open socket on localhost:4949)
       return True
-        
-    def metrics(self):
-        """get a list of metrics"""
+
+    def metrics(self, NS='.'):
+        """return a list/tree of metrics starting at 'root'"""
         t = telnetlib.Telnet('localhost', self.port)
         time.sleep(.2)
         res = t.read_eager() #read the banner
@@ -92,10 +90,11 @@ class MuninNodeProxy(Component):
             while res: 
                 data += res
                 res = t.read_eager()
-        except EOFError:
-            pass
-        return data.strip().split() #return list of metric names
-        
+        except EOFError, e:
+            return {'status':-1, 'response':[], 'errors':[str(e)]}
+        out = data.strip().split() #return list of metric names
+        return {'status':0, 'response':[out], 'errors':[]}
+
     def values(self, *metric):
         """get current values for each metric in *metrics"""
         t = telnetlib.Telnet('localhost', self.port)
@@ -110,8 +109,10 @@ class MuninNodeProxy(Component):
                 data += res
                 res = t.read_eager()
         except EOFError:
-            pass
-        return data.strip().split('\n')
+            return {'status':-1, 'response':[], 'errors':[str(e)]}
+        out = data.strip().split('\n')
+        return {'status':0, 'response':[out], 'errors':[]}
+        
         
 
 

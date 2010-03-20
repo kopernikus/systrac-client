@@ -39,8 +39,13 @@ class IMonitoringModule(Interface):
     def description():
         """return a string describing the module"""
 
-    def metrics():
-      """return a list of metrics"""
+
+    def metrics(namespace='.'):
+      """return a list/tree of metrics starting at 'namespace'
+      which is a dotted string (think DNS names)
+
+      The implementor can choose a namespace or just return
+      a flat list which will be inserted at the root of the tree."""
 
     def values( *metrics):
       """return a dict of list for all instances
